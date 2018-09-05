@@ -1,19 +1,18 @@
-#!/bin/bash
+#! /bin/bash
 
-DIR=$1
-
+NAME=$1
 SCRATCH=$2
-
 HERE=$(pwd)
 
-tar -xvzf $DIR -C $SCRATCH
-
+mkdir $SCRATCH
+tar -xzf $NAME -C $SCRATCH
 cd $SCRATCH
+grep -rl "DELETE ME!" | xargs rm
 
-grep -rl "DELETE ME!" . | xargs rm
+CLEANEDNAME="cleaned_$NAME"
+CLEANEDSCRATCH=${1%.*}
 
-tar -cvf cleaned_little_dir.tgz little_dir/
-
-mv cleaned_little_dir.tgz $HERE
+tar -czf $CLEANEDNAME $CLEANEDSCRATCH
+mv $CLEANEDNAME $HERE
 
 
